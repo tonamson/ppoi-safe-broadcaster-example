@@ -237,6 +237,9 @@ export const myConfigOverrides = () => {
   //   },
   // };
 
+  // Fetch price from DexScreener
+  setPriceSource(TokenPriceSource.DexScreener, true);
+  setPriceSource(TokenPriceSource.Uniswap, false);
 
   // Enable topup on running networks.
   // enableTopUp(); // UNCOMMENT TO ENABLE TOP-UP
