@@ -2,6 +2,7 @@ import { BroadcasterChain } from '../../models/chain-models';
 import { zeroXUpdatePricesByAddresses } from '../api/0x/0x-price';
 import { coingeckoUpdatePricesByAddresses } from '../api/coingecko/coingecko-price';
 import { uniswapUpdatePricesByAddresses } from '../api/uniswap/uniswap-price';
+import { dexScreenerUpdatePricesByAddresses } from '../api/dexscreener/dexscreener-price';
 import { allTokenAddressesForNetwork } from '../tokens/network-tokens';
 import {
   cacheTokenPriceForNetwork,
@@ -116,6 +117,28 @@ const tokenPriceRefresherUniswap = (
   return uniswapUpdatePricesByAddresses(chain, tokenAddresses, updater);
 };
 
+const tokenPriceRefresherDexScreener = (
+  chain: BroadcasterChain,
+  tokenAddresses: string[],
+): Promise<void> => {
+  const updater: TokenPriceUpdater = (
+    tokenAddress: string,
+    tokenPrice: TokenPrice,
+  ) =>
+    cacheTokenPriceForNetwork(
+      TokenPriceSource.DexScreener,
+      chain,
+      tokenAddress,
+      tokenPrice,
+    );
+
+  const network = configNetworks[chain.type][chain.id];
+  if (network.isTestNetwork ?? false) {
+    return Promise.resolve();
+  }
+  return dexScreenerUpdatePricesByAddresses(chain, tokenAddresses, updater);
+};
+
 export default {
   tokenPriceRefreshers: {
     [TokenPriceSource.CoinGecko]: {
@@ -148,6 +171,15 @@ export default {
       enabled: true,
       refreshDelayInMS: 30 * 1000,
       refresher: tokenPriceRefresherUniswap,
+    },
+    [TokenPriceSource.DexScreener]: {
+      /**
+       * Refresh token prices from DexScreener every 30 seconds.
+       * Free, no API key required. Supports BSC, Ethereum, Polygon, Arbitrum.
+       */
+      enabled: false, // enable in MY-CONFIG.ts
+      refreshDelayInMS: 30 * 1000,
+      refresher: tokenPriceRefresherDexScreener,
     },
   },
 } as { tokenPriceRefreshers: MapType<TokenPriceRefresher> };
