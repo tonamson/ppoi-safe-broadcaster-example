@@ -13,16 +13,11 @@ rest-admin=true
 #rest-private=true
 rest-relay-cache-capacity=3000
 keep-alive=false
-staticnode=[
- # dev-node
-  "/dns4/core.rootedinprivacy.com/tcp/60000/p2p/16Uiu2HAm4Ai1GzKv4EykU26ST1BPT4AHtABsYCLKrDG74GWX7D6H",
-]
-dns-discovery=false
-discv5-discovery=false
-discv5-bootstrap-node=[
-  # dev-node
-  "enr:-Ou4QF5uFxGUG9WVUuysEWm8nketT_Pe6hG0P6NRxu9dTOwHWHWQgGFhm-vqmYwUvU0LtrW2LhSEO7iEHKD4l8JEd14BgmlkgnY0gmlwhIxSIGiKbXVsdGlhZGRyc7hAAB02GGNvcmUucm9vdGVkaW5wcml2YWN5LmNvbQbqYAAfNhhjb3JlLnJvb3RlZGlucHJpdmFjeS5jb20GH0DeA4Jyc48AAAYAAAABAAIAAwAEAAWJc2VjcDI1NmsxoQKB48KxVciQEh-6cSmBBGdTm-ehZ_6_oht-pjmrU52YEoN0Y3CC6mCFd2FrdTIN",
-]
+staticnode=[]
+dns-discovery=true
+dns-discovery-url="enrtree://AIRVQ5DDA4FFWLRBCHJWUWOO6X6S4ZTZ5B667LQ6AJU6PEYDLRD5O@sandbox.waku.nodes.status.im"
+discv5-discovery=true
+discv5-bootstrap-node=[]
 shard=[0, 1, 2, 3, 4, 5]
 max-msg-size="512KiB"
 
