@@ -177,7 +177,7 @@ const createFallbackProviderConfig = (chainId: number, url: string[]) => {
 
     return {
       provider: url,
-      sallTimeout: 2500,
+      stallTimeout: 2500,
       ...weights
     };
   });
